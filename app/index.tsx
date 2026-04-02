@@ -1,4 +1,5 @@
 import { css, html } from "react-strict-dom";
+import { Button } from "./components/button";
 import "./strict.css";
 
 const stylesStrict = css.create({
@@ -15,28 +16,13 @@ const stylesStrict = css.create({
     fontSize: 24,
     marginBottom: 16,
   },
-  button: {
-    padding: 8,
-    backgroundColor: "#000",
-    borderRadius: 8,
-    fontSize: 16,
-  },
-  buttonText: {
-    color: "white",
-    fontSize: 16,
-  },
 });
 
 export default function HomeScreen() {
   return (
     <html.div style={stylesStrict.container}>
       <html.p style={stylesStrict.title}>Hello cross-platform 👋</html.p>
-      <html.button
-        style={stylesStrict.button}
-        onClick={() => alert("click cros platform")}
-      >
-        <html.span style={stylesStrict.buttonText}>Click me</html.span>
-      </html.button>
+      <Button onClick={() => alert("click cros platform")}>Click me</Button>
     </html.div>
   );
 }
