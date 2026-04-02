@@ -1,4 +1,5 @@
 import { css, html } from "react-strict-dom";
+import "./strict.css";
 
 const stylesStrict = css.create({
   container: {
