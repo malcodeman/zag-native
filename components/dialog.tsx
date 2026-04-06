@@ -39,6 +39,12 @@ function DialogWeb(props: DialogProps) {
               {...zagToReactStrictDom(api.getContentProps())}
               style={style.content}
             >
+              <html.button
+                {...zagToReactStrictDom(api.getCloseTriggerProps())}
+                style={style.xButton}
+              >
+                ✕
+              </html.button>
               {title && (
                 <html.h2
                   {...zagToReactStrictDom(api.getTitleProps())}
@@ -103,6 +109,9 @@ function DialogNative(props: DialogProps) {
             style={[style.content, style.contentNative]}
             onClick={(e) => e.stopPropagation()}
           >
+            <html.button onClick={() => api.setOpen(false)} style={style.xButton}>
+              ✕
+            </html.button>
             {title && <html.h2 style={style.title}>{title}</html.h2>}
             {children}
             <html.button
@@ -166,6 +175,7 @@ const style = css.create({
     display: "flex",
     flexDirection: "column",
     gap: 12,
+    position: "relative",
   },
   title: {
     fontSize: 18,
@@ -184,5 +194,21 @@ const style = css.create({
     cursor: "pointer",
     fontSize: 14,
     backgroundColor: "transparent",
+  },
+  xButton: {
+    position: "absolute",
+    top: 12,
+    right: 12,
+    width: 28,
+    height: 28,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "transparent",
+    borderWidth: 0,
+    cursor: "pointer",
+    fontSize: 16,
+    color: "#555",
+    borderRadius: 4,
   },
 });
