@@ -26,6 +26,9 @@ importers:
       '@zag-js/number-input':
         specifier: ^1.39.1
         version: 1.39.1
+      '@zag-js/progress':
+        specifier: ^1.39.1
+        version: 1.39.1
       '@zag-js/react':
         specifier: ^1.39.1
         version: 1.39.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -1516,6 +1519,9 @@ packages:
 
   '@zag-js/number-input@1.39.1':
     resolution: {integrity: sha512-VWgsQJB2q//aVDv5NUK//BTK+TsxI3goHQN4hc5YAGQ7MZgon/TEMhkPQMjUJ9+w+imut60EW8mpDEY2CNqtVw==}
+
+  '@zag-js/progress@1.39.1':
+    resolution: {integrity: sha512-1IHyOw8DqPs3YH149Oj7W9a5oEfY5pc9GAVOPGbzYxVK/W8d/NIjVxa565I3J5cDJ0s6z3FrMSXMWUwr1ML4tw==}
 
   '@zag-js/react@1.39.1':
     resolution: {integrity: sha512-mRBw0zikDH6aiLzzmwfVfXmjtWQJK3xGwB7BPedU5bI2JQzrhFDr8rAQFwFOu8ax1bv1HBY8sQoBFR3LVtRbzw==}
@@ -6148,6 +6154,14 @@ snapshots:
   '@zag-js/number-input@1.39.1':
     dependencies:
       '@internationalized/number': 3.6.5
+      '@zag-js/anatomy': 1.39.1
+      '@zag-js/core': 1.39.1
+      '@zag-js/dom-query': 1.39.1
+      '@zag-js/types': 1.39.1
+      '@zag-js/utils': 1.39.1
+
+  '@zag-js/progress@1.39.1':
+    dependencies:
       '@zag-js/anatomy': 1.39.1
       '@zag-js/core': 1.39.1
       '@zag-js/dom-query': 1.39.1

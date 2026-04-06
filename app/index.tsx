@@ -1,13 +1,16 @@
 import { Button } from "@/components/button";
 import { NumberInput } from "@/components/number-input";
 import { XStatePopover } from "@/components/popover/xstate-popover";
+import { Progress } from "@/components/progress";
 import { Switch } from "@/components/switch";
+import { useState } from "react";
 import { Platform } from "react-native";
 import { css, html } from "react-strict-dom";
 import "./strict.css";
 
 export default function HomeScreen() {
   const isWeb = Platform.OS === "web";
+  const [progress, setProgress] = useState(0);
 
   return (
     <html.div style={styles.container}>
@@ -20,6 +23,11 @@ export default function HomeScreen() {
       ) : null}
       <Switch label="Toggle" />
       <NumberInput />
+      <Progress value={progress} label="Loading..." />
+      <html.div style={styles.buttonGroup}>
+        <Button onClick={() => setProgress(progress - 20)}>Decrease</Button>
+        <Button onClick={() => setProgress(progress + 20)}>Increase</Button>
+      </html.div>
     </html.div>
   );
 }
@@ -37,5 +45,10 @@ const styles = css.create({
   title: {
     fontSize: 24,
     marginBottom: 16,
+  },
+  buttonGroup: {
+    display: "flex",
+    gap: 8,
+    marginTop: 16,
   },
 });
