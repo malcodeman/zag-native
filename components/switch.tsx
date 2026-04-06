@@ -3,7 +3,7 @@ import { zagToReactStrictDom } from "@/utils/zag-to-react-strict-dom";
 import { normalizeProps, useMachine } from "@zag-js/react";
 import { connect, machine } from "@zag-js/switch";
 import { useEffect, useId } from "react";
-import { Platform } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -71,7 +71,7 @@ function SwitchNative() {
       >
         <Animated.View
           {...zagToReactStrictDom(api.getThumbProps())}
-          style={[style.thumb, animatedThumbStyle]}
+          style={[nativeThumbStyle.thumb, animatedThumbStyle]}
         />
       </html.div>
       <html.span
@@ -87,6 +87,15 @@ function SwitchNative() {
 export function Switch() {
   return Platform.OS === "web" ? <SwitchWeb /> : <SwitchNative />;
 }
+
+const nativeThumbStyle = StyleSheet.create({
+  thumb: {
+    backgroundColor: "#FFF",
+    borderRadius: 99,
+    width: 28,
+    height: 28,
+  },
+});
 
 const style = css.create({
   root: {
