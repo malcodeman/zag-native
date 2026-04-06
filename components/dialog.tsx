@@ -9,18 +9,11 @@ import { css, html } from "react-strict-dom";
 type DialogProps = Omit<ZagDialogProps, "id" | "getRootNode"> & {
   triggerLabel?: string;
   title?: string;
-  description?: string;
   children?: React.ReactNode;
 };
 
 function DialogWeb(props: DialogProps) {
-  const {
-    triggerLabel = "Open",
-    title,
-    description,
-    children,
-    ...zagProps
-  } = props;
+  const { triggerLabel = "Open", title, children, ...zagProps } = props;
   const service = useMachine(machine, { ...zagProps, id: useId() });
   const api = connect(service, normalizeProps);
 
@@ -54,14 +47,6 @@ function DialogWeb(props: DialogProps) {
                   {title}
                 </html.h2>
               )}
-              {description && (
-                <html.p
-                  {...zagToReactStrictDom(api.getDescriptionProps())}
-                  style={style.description}
-                >
-                  {description}
-                </html.p>
-              )}
               {children}
               <html.button
                 {...zagToReactStrictDom(api.getCloseTriggerProps())}
@@ -92,13 +77,7 @@ const nativeMachine: typeof machine = {
 };
 
 function DialogNative(props: DialogProps) {
-  const {
-    triggerLabel = "Open",
-    title,
-    description,
-    children,
-    ...zagProps
-  } = props;
+  const { triggerLabel = "Open", title, children, ...zagProps } = props;
   const service = useMachine(nativeMachine, {
     ...zagProps,
     id: useId(),
@@ -120,11 +99,11 @@ function DialogNative(props: DialogProps) {
       >
         <html.div style={style.backdrop} />
         <html.div style={style.positioner} onClick={() => api.setOpen(false)}>
-          <html.div style={[style.content, style.contentNative]}>
+          <html.div
+            style={[style.content, style.contentNative]}
+            onClick={(e) => e.stopPropagation()}
+          >
             {title && <html.h2 style={style.title}>{title}</html.h2>}
-            {description && (
-              <html.p style={style.description}>{description}</html.p>
-            )}
             {children}
             <html.button
               onClick={() => api.setOpen(false)}
@@ -191,11 +170,6 @@ const style = css.create({
   title: {
     fontSize: 18,
     fontWeight: 600,
-    margin: 0,
-  },
-  description: {
-    fontSize: 14,
-    color: "#555",
     margin: 0,
   },
   closeButton: {

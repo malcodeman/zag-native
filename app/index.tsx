@@ -31,11 +31,7 @@ export default function HomeScreen() {
         </XStatePopover>
       ) : null}
       <Switch label="Toggle" />
-      <Dialog
-        triggerLabel="View Pricing"
-        title="Pro Plan — $12/mo"
-        description="Upgrade to unlock all features and priority support."
-      >
+      <Dialog triggerLabel="View Pricing" title="Pro Plan — $12/mo">
         <html.div style={dialogStyles.priceList}>
           {[
             { label: "Unlimited projects", price: "Included" },
