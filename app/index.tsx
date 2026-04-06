@@ -10,7 +10,7 @@ const stylesStrict = css.create({
   container: {
     display: "flex",
     flexDirection: "column",
-    flex: 1,
+    minHeight: "100%",
     alignItems: "center",
     justifyContent: "center",
     padding: 16,

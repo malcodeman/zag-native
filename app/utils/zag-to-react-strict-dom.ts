@@ -1,5 +1,11 @@
+import { Platform } from "react-native";
+
 // Props that zag-js emits but React Strict DOM does not support
-const INVALID_RSD_PROPS = new Set(["autoCorrect"]);
+const NATIVE_INVALID_RSD_PROPS = new Set(["autoCorrect", "pattern", "form"]);
+const WEB_INVALID_RSD_PROPS = new Set(["htmlFor"]);
+
+const INVALID_RSD_PROPS =
+  Platform.OS === "web" ? WEB_INVALID_RSD_PROPS : NATIVE_INVALID_RSD_PROPS;
 
 const isValidRsdProp = ([key]: [string, unknown]) =>
   !INVALID_RSD_PROPS.has(key);
