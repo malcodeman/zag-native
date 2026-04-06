@@ -1,7 +1,7 @@
 import { nativeGetRootNode } from "@/utils/native";
 import { zagToReactStrictDom } from "@/utils/zag-to-react-strict-dom";
 import { normalizeProps, useMachine } from "@zag-js/react";
-import { connect, machine } from "@zag-js/switch";
+import { Props as ZagSwitchProps, connect, machine } from "@zag-js/switch";
 import { useEffect, useId } from "react";
 import { Platform, StyleSheet } from "react-native";
 import Animated, {
@@ -11,8 +11,10 @@ import Animated, {
 } from "react-native-reanimated";
 import { css, html } from "react-strict-dom";
 
-function SwitchWeb() {
-  const service = useMachine(machine, { id: useId() });
+type SwitchProps = Omit<ZagSwitchProps, "id" | "getRootNode">;
+
+function SwitchWeb(props: SwitchProps) {
+  const service = useMachine(machine, { ...props, id: useId() });
   const api = connect(service, normalizeProps);
 
   return (
@@ -31,7 +33,7 @@ function SwitchWeb() {
         {...zagToReactStrictDom(api.getLabelProps())}
         style={style.label}
       >
-        {api.checked ? "On" : "Off"}
+        {props.label}
       </html.span>
     </html.label>
   );
@@ -48,8 +50,9 @@ const nativeMachine: typeof machine = {
   },
 };
 
-function SwitchNative() {
+function SwitchNative(props: SwitchProps) {
   const service = useMachine(nativeMachine, {
+    ...props,
     id: useId(),
     getRootNode: nativeGetRootNode,
   });
@@ -78,14 +81,18 @@ function SwitchNative() {
         {...zagToReactStrictDom(api.getLabelProps())}
         style={style.label}
       >
-        {api.checked ? "On" : "Off"}
+        {props.label}
       </html.span>
     </html.div>
   );
 }
 
-export function Switch() {
-  return Platform.OS === "web" ? <SwitchWeb /> : <SwitchNative />;
+export function Switch(props: SwitchProps) {
+  return Platform.OS === "web" ? (
+    <SwitchWeb {...props} />
+  ) : (
+    <SwitchNative {...props} />
+  );
 }
 
 const nativeThumbStyle = StyleSheet.create({

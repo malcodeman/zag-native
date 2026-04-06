@@ -18,7 +18,7 @@ export default function HomeScreen() {
           Popover content
         </XStatePopover>
       ) : null}
-      <Switch />
+      <Switch label="Toggle" />
       <NumberInput />
     </html.div>
   );
