@@ -31,27 +31,25 @@ function AccordionWeb({ items, ...rest }: AccordionProps) {
           {...zagToReactStrictDom(api.getItemProps({ value: item.title }))}
           style={style.item}
         >
-          <html.h3 style={style.heading}>
-            <html.button
+          <html.button
+            {...zagToReactStrictDom(
+              api.getItemTriggerProps({ value: item.title }),
+            )}
+            style={style.trigger}
+          >
+            <html.span>{item.title}</html.span>
+            <html.span
               {...zagToReactStrictDom(
-                api.getItemTriggerProps({ value: item.title }),
+                api.getItemIndicatorProps({ value: item.title }),
               )}
-              style={style.trigger}
+              style={[
+                style.indicator,
+                api.value.includes(item.title) && style.indicatorOpen,
+              ]}
             >
-              <html.span>{item.title}</html.span>
-              <html.span
-                {...zagToReactStrictDom(
-                  api.getItemIndicatorProps({ value: item.title }),
-                )}
-                style={[
-                  style.indicator,
-                  api.value.includes(item.title) && style.indicatorOpen,
-                ]}
-              >
-                ▾
-              </html.span>
-            </html.button>
-          </html.h3>
+              ▾
+            </html.span>
+          </html.button>
           <html.div
             {...zagToReactStrictDom(
               api.getItemContentProps({ value: item.title }),
@@ -82,28 +80,26 @@ function AccordionNative({ items, ...rest }: AccordionProps) {
           {...zagToReactStrictDom(api.getItemProps({ value: item.title }))}
           style={style.item}
         >
-          <html.div style={style.heading}>
-            <html.div
-              onClick={() =>
-                api.setValue(
-                  api.value.includes(item.title)
-                    ? api.value.filter((v) => v !== item.title)
-                    : [...api.value, item.title],
-                )
-              }
-              style={style.trigger}
+          <html.button
+            onClick={() =>
+              api.setValue(
+                api.value.includes(item.title)
+                  ? api.value.filter((v) => v !== item.title)
+                  : [...api.value, item.title],
+              )
+            }
+            style={style.trigger}
+          >
+            <html.span>{item.title}</html.span>
+            <html.span
+              style={[
+                style.indicator,
+                api.value.includes(item.title) && style.indicatorOpen,
+              ]}
             >
-              <html.span>{item.title}</html.span>
-              <html.span
-                style={[
-                  style.indicator,
-                  api.value.includes(item.title) && style.indicatorOpen,
-                ]}
-              >
-                ▾
-              </html.span>
-            </html.div>
-          </html.div>
+              ▾
+            </html.span>
+          </html.button>
           <html.div
             {...zagToReactStrictDom(
               api.getItemContentProps({ value: item.title }),
@@ -135,9 +131,6 @@ const style = css.create({
     borderBottomColor: "#E9E8E6",
     borderBottomStyle: "solid",
   },
-  heading: {
-    margin: 0,
-  },
   trigger: {
     display: "flex",
     width: "100%",
@@ -152,7 +145,6 @@ const style = css.create({
     cursor: "pointer",
     backgroundColor: "transparent",
     borderWidth: 0,
-    color: "inherit",
   },
   indicator: {
     transition: "transform 0.2s",
