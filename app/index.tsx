@@ -1,6 +1,7 @@
 import { Platform } from "react-native";
 import { css, html } from "react-strict-dom";
 import { Button } from "./components/button";
+import { NumberInput } from "./components/number-input";
 import { XStatePopover } from "./components/popover/xstate-popover";
 import { Switch } from "./components/switch";
 import "./strict.css";
@@ -34,6 +35,7 @@ export default function HomeScreen() {
         </XStatePopover>
       ) : null}
       <Switch />
+      <NumberInput />
     </html.div>
   );
 }
