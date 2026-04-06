@@ -5,7 +5,6 @@ import { NumberInput } from "@/components/number-input";
 import { Popover } from "@/components/popover/popover";
 import { XStatePopover } from "@/components/popover/xstate-popover";
 import { Progress } from "@/components/progress";
-import { Slider } from "@/components/slider";
 import { Switch } from "@/components/switch";
 import { useState } from "react";
 import { Platform, ScrollView } from "react-native";
@@ -31,7 +30,6 @@ function Section({
 export default function HomeScreen() {
   const isWeb = Platform.OS === "web";
   const [progress, setProgress] = useState(40);
-  const [sliderValue, setSliderValue] = useState([20]);
   const [inputValue, setInputValue] = useState("0");
   const insets = useSafeAreaInsets();
 
@@ -126,17 +124,6 @@ export default function HomeScreen() {
                 ))}
               </html.div>
             </Dialog>
-          </Section>
-
-          <Section title="Slider">
-            <Slider
-              label="Volume"
-              value={sliderValue}
-              onValueChange={(details) => setSliderValue(details.value)}
-              min={0}
-              max={100}
-              step={1}
-            />
           </Section>
 
           <Section title="Accordion">
