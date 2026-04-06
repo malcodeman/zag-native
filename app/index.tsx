@@ -1,5 +1,6 @@
 import { Accordion } from "@/components/accordion";
 import { Button } from "@/components/button";
+import { Dialog } from "@/components/dialog";
 import { NumberInput } from "@/components/number-input";
 import { XStatePopover } from "@/components/popover/xstate-popover";
 import { Progress } from "@/components/progress";
@@ -30,6 +31,25 @@ export default function HomeScreen() {
         </XStatePopover>
       ) : null}
       <Switch label="Toggle" />
+      <Dialog
+        triggerLabel="View Pricing"
+        title="Pro Plan — $12/mo"
+        description="Upgrade to unlock all features and priority support."
+      >
+        <html.div style={dialogStyles.priceList}>
+          {[
+            { label: "Unlimited projects", price: "Included" },
+            { label: "Priority support", price: "Included" },
+            { label: "Custom domain", price: "+$4/mo" },
+            { label: "Analytics", price: "+$2/mo" },
+          ].map(({ label, price }) => (
+            <html.div key={label} style={dialogStyles.priceRow}>
+              <html.span style={dialogStyles.priceLabel}>{label}</html.span>
+              <html.span style={dialogStyles.priceValue}>{price}</html.span>
+            </html.div>
+          ))}
+        </html.div>
+      </Dialog>
       <Accordion items={accordionItems} multiple />
       <NumberInput
         value={inputValue}
@@ -43,6 +63,32 @@ export default function HomeScreen() {
     </html.div>
   );
 }
+
+const dialogStyles = css.create({
+  priceList: {
+    display: "flex",
+    flexDirection: "column",
+    gap: 8,
+    borderTopWidth: 1,
+    borderTopColor: "#eee",
+    paddingTop: 8,
+  },
+  priceRow: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingVertical: 4,
+  },
+  priceLabel: {
+    fontSize: 14,
+    color: "#333",
+  },
+  priceValue: {
+    fontSize: 14,
+    fontWeight: 600,
+    color: "#DC3918",
+  },
+});
 
 const styles = css.create({
   container: {
