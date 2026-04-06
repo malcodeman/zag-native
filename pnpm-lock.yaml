@@ -41,6 +41,9 @@ importers:
       '@zag-js/react':
         specifier: ^1.39.1
         version: 1.39.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@zag-js/slider':
+        specifier: ^1.39.1
+        version: 1.39.1
       '@zag-js/switch':
         specifier: ^1.39.1
         version: 1.39.1
@@ -1573,6 +1576,9 @@ packages:
 
   '@zag-js/remove-scroll@1.39.1':
     resolution: {integrity: sha512-uZfPR3Gl9sQFo+tJ7kbuwsBhw+RIZwWFnMDgrz5LIwSNGN6hsyC4HGOxe29clkWQ2X2AjqqmEMETwgX7Jg+wxA==}
+
+  '@zag-js/slider@1.39.1':
+    resolution: {integrity: sha512-OEA9R7Ly5cw+6ANofnMpuHH3rAo8gZEnxy7iEwePu11pq2RCnt8DSj2V+uqU+dTq15Uup1LSzRgJfTnAC4Z85A==}
 
   '@zag-js/store@1.39.1':
     resolution: {integrity: sha512-zFpwP4lhiBVD9987rwAfZNVa2/f/xx4mhbCE1EEw31zxLAozY2jONeJ3UzPP05VbzKlRHBcvkaXAJQQGegTwFA==}
@@ -6294,6 +6300,14 @@ snapshots:
   '@zag-js/remove-scroll@1.39.1':
     dependencies:
       '@zag-js/dom-query': 1.39.1
+
+  '@zag-js/slider@1.39.1':
+    dependencies:
+      '@zag-js/anatomy': 1.39.1
+      '@zag-js/core': 1.39.1
+      '@zag-js/dom-query': 1.39.1
+      '@zag-js/types': 1.39.1
+      '@zag-js/utils': 1.39.1
 
   '@zag-js/store@1.39.1':
     dependencies:

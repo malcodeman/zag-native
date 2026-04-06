@@ -23,6 +23,7 @@
     "@zag-js/popover": "^1.39.1",
     "@zag-js/progress": "^1.39.1",
     "@zag-js/react": "^1.39.1",
+    "@zag-js/slider": "^1.39.1",
     "@zag-js/switch": "^1.39.1",
     "autoprefixer": "^10.4.27",
     "expo": "~54.0.33",
