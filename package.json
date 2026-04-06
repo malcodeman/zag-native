@@ -16,6 +16,8 @@
     "@react-navigation/bottom-tabs": "^7.4.0",
     "@react-navigation/elements": "^2.6.3",
     "@react-navigation/native": "^7.1.8",
+    "@zag-js/react": "^1.38.2",
+    "@zag-js/switch": "^1.38.2",
     "autoprefixer": "^10.4.27",
     "expo": "~54.0.33",
     "expo-constants": "~18.0.13",
