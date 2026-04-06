@@ -15,11 +15,11 @@ function SwitchWeb() {
       <html.input {...zagToReactStrictDom(api.getHiddenInputProps())} />
       <html.span
         {...zagToReactStrictDom(api.getControlProps())}
-        style={style.control}
+        style={[style.control, api.checked && styleChecked.control]}
       >
         <html.span
           {...zagToReactStrictDom(api.getThumbProps())}
-          style={style.thumb}
+          style={[style.thumb, api.checked && styleChecked.thumb]}
         />
       </html.span>
       <html.span
@@ -54,11 +54,11 @@ function SwitchNative() {
     <html.div onClick={api.toggleChecked} style={style.root}>
       <html.div
         {...zagToReactStrictDom(api.getControlProps())}
-        style={style.control}
+        style={[style.control, api.checked && styleChecked.control]}
       >
         <html.span
           {...zagToReactStrictDom(api.getThumbProps())}
-          style={style.thumb}
+          style={[style.thumb, api.checked && styleChecked.thumb]}
         />
       </html.div>
       <html.span
@@ -80,7 +80,7 @@ const style = css.create({
     display: "flex",
     cursor: "pointer",
     alignItems: "center",
-    gap: 4,
+    gap: 8,
   },
   control: {
     display: "flex",
@@ -89,17 +89,26 @@ const style = css.create({
     backgroundColor: "#E9E8E6",
     padding: 6,
     transition: "background-color 0.2s",
-    width: 48,
+    width: 56,
   },
   thumb: {
-    backgroundColor: "#DC3918",
+    backgroundColor: "#FFF",
     borderRadius: 99,
-    width: 20,
-    height: 20,
+    width: 28,
+    height: 28,
     transition: "transform 0.2s",
   },
   label: {
     fontSize: 14,
     fontWeight: 500,
+  },
+});
+
+const styleChecked = css.create({
+  control: {
+    backgroundColor: "#DC3918",
+  },
+  thumb: {
+    transform: "translateX(28px)",
   },
 });
