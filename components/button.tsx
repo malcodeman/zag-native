@@ -1,5 +1,13 @@
 import { css, html } from "react-strict-dom";
 
+export function Button(props: React.ComponentProps<typeof html.button>) {
+  return (
+    <html.button {...props} style={style.button}>
+      <html.span style={style.buttonText}>{props.children}</html.span>
+    </html.button>
+  );
+}
+
 const style = css.create({
   button: {
     padding: 16,
@@ -14,11 +22,3 @@ const style = css.create({
     letterSpacing: -0.5,
   },
 });
-
-export function Button(props: React.ComponentProps<typeof html.button>) {
-  return (
-    <html.button {...props} style={style.button}>
-      <html.span style={style.buttonText}>{props.children}</html.span>
-    </html.button>
-  );
-}

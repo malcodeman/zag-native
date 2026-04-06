@@ -1,3 +1,5 @@
+import { nativeGetRootNode } from "@/utils/native";
+import { zagToReactStrictDom } from "@/utils/zag-to-react-strict-dom";
 import { normalizeProps, useMachine } from "@zag-js/react";
 import { connect, machine } from "@zag-js/switch";
 import { useEffect, useId } from "react";
@@ -8,8 +10,6 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 import { css, html } from "react-strict-dom";
-import { nativeGetRootNode } from "../constants";
-import { zagToReactStrictDom } from "../utils/zag-to-react-strict-dom";
 
 function SwitchWeb() {
   const service = useMachine(machine, { id: useId() });

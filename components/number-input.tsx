@@ -1,10 +1,10 @@
+import { nativeGetRootNode } from "@/utils/native";
+import { zagToReactStrictDom } from "@/utils/zag-to-react-strict-dom";
 import { connect, machine } from "@zag-js/number-input";
 import { normalizeProps, useMachine } from "@zag-js/react";
 import { useId } from "react";
 import { Platform } from "react-native";
 import { css, html } from "react-strict-dom";
-import { nativeGetRootNode } from "../constants";
-import { zagToReactStrictDom } from "../utils/zag-to-react-strict-dom";
 
 function NumberInputWeb() {
   const service = useMachine(machine, { id: useId() });
