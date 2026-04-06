@@ -1,3 +1,4 @@
+import { Accordion } from "@/components/accordion";
 import { Button } from "@/components/button";
 import { NumberInput } from "@/components/number-input";
 import { XStatePopover } from "@/components/popover/xstate-popover";
@@ -13,6 +14,12 @@ export default function HomeScreen() {
   const [progress, setProgress] = useState(0);
   const [inputValue, setInputValue] = useState("0");
 
+  const accordionItems = [
+    { title: "Watercraft", content: "Sample accordion content" },
+    { title: "Automobiles", content: "Sample accordion content" },
+    { title: "Aircraft", content: "Sample accordion content" },
+  ];
+
   return (
     <html.div style={styles.container}>
       <html.p style={styles.title}>Hello cross-platform 👋</html.p>
@@ -23,6 +30,7 @@ export default function HomeScreen() {
         </XStatePopover>
       ) : null}
       <Switch label="Toggle" />
+      <Accordion items={accordionItems} multiple />
       <NumberInput
         value={inputValue}
         onValueChange={(details) => setInputValue(details.value)}

@@ -17,6 +17,7 @@
     "@react-navigation/elements": "^2.6.3",
     "@react-navigation/native": "^7.1.8",
     "@xstate/react": "^6.1.0",
+    "@zag-js/accordion": "^1.39.1",
     "@zag-js/number-input": "^1.39.1",
     "@zag-js/progress": "^1.39.1",
     "@zag-js/react": "^1.39.1",

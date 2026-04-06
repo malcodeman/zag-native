@@ -23,6 +23,9 @@ importers:
       '@xstate/react':
         specifier: ^6.1.0
         version: 6.1.0(@types/react@19.1.17)(react@19.1.0)(xstate@5.30.0)
+      '@zag-js/accordion':
+        specifier: ^1.39.1
+        version: 1.39.1
       '@zag-js/number-input':
         specifier: ^1.39.1
         version: 1.39.1
@@ -1504,6 +1507,9 @@ packages:
     peerDependenciesMeta:
       xstate:
         optional: true
+
+  '@zag-js/accordion@1.39.1':
+    resolution: {integrity: sha512-GA3m7gRTm3weSe1eMlHIsTNztcjZ6joIaRgxxKil7q/UX0xIVVGDy0aCr6oo7FAuoMiOOBVurYXILpFZ30nOXA==}
 
   '@zag-js/anatomy@1.39.1':
     resolution: {integrity: sha512-p2iFAs2pVQgv5iCDAftA7g9Z/fUYXW94dRIGk415TSbkp/YDENydm/JtRoNctp302UIx4Eeuc5QBR+7h5kuISA==}
@@ -6135,6 +6141,14 @@ snapshots:
       xstate: 5.30.0
     transitivePeerDependencies:
       - '@types/react'
+
+  '@zag-js/accordion@1.39.1':
+    dependencies:
+      '@zag-js/anatomy': 1.39.1
+      '@zag-js/core': 1.39.1
+      '@zag-js/dom-query': 1.39.1
+      '@zag-js/types': 1.39.1
+      '@zag-js/utils': 1.39.1
 
   '@zag-js/anatomy@1.39.1': {}
 
