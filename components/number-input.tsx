@@ -15,6 +15,7 @@ type NumberInputProps = Omit<ZagNumberInputProps, "id" | "getRootNode">;
 function NumberInputWeb(props: NumberInputProps) {
   const service = useMachine(machine, { ...props, id: useId() });
   const api = connect(service, normalizeProps);
+  const { defaultValue } = api.getInputProps();
 
   return (
     <html.div {...zagToReactStrictDom(api.getRootProps())} style={style.root}>
@@ -24,10 +25,7 @@ function NumberInputWeb(props: NumberInputProps) {
       >
         -
       </html.button>
-      <html.input
-        {...zagToReactStrictDom(api.getInputProps())}
-        style={style.input}
-      />
+      <html.span style={style.value}>{defaultValue}</html.span>
       <html.button
         {...zagToReactStrictDom(api.getIncrementTriggerProps())}
         style={style.button}
@@ -45,16 +43,14 @@ function NumberInputNative(props: NumberInputProps) {
     getRootNode: nativeGetRootNode,
   });
   const api = connect(service, normalizeProps);
+  const { defaultValue } = api.getInputProps();
 
   return (
     <html.div style={style.root}>
       <html.button onClick={api.decrement} style={style.button}>
         -
       </html.button>
-      <html.input
-        {...zagToReactStrictDom(api.getInputProps())}
-        style={style.input}
-      />
+      <html.span style={style.value}>{defaultValue}</html.span>
       <html.button onClick={api.increment} style={style.button}>
         +
       </html.button>
@@ -74,28 +70,26 @@ const style = css.create({
   root: {
     display: "flex",
     alignItems: "center",
-    gap: 8,
+    gap: 2,
   },
   button: {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    width: 56,
-    height: 56,
-    backgroundColor: "transparent",
+    width: 32,
+    height: 32,
+    backgroundColor: "#e9e8e6",
+    color: "#21201C",
     cursor: "pointer",
-    fontSize: 32,
+    fontSize: 16,
     borderWidth: 1,
     borderRadius: 99,
     borderColor: "#E9E8E6",
   },
-  input: {
-    borderWidth: 0,
-    width: 56,
-    height: 56,
-    borderRadius: 6,
+  value: {
     fontSize: 16,
-    backgroundColor: "#FFFFFF",
-    borderColor: "#E9E8E6",
+    fontWeight: 500,
+    minWidth: 32,
+    textAlign: "center",
   },
 });
