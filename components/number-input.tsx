@@ -12,8 +12,12 @@ import { css, html } from "react-strict-dom";
 
 type NumberInputProps = Omit<ZagNumberInputProps, "id" | "getRootNode">;
 
-function NumberInputWeb(props: NumberInputProps) {
-  const service = useMachine(machine, { ...props, id: useId() });
+export function NumberInput(props: NumberInputProps) {
+  const service = useMachine(machine, {
+    ...props,
+    id: useId(),
+    ...(Platform.OS !== "web" && { getRootNode: nativeGetRootNode }),
+  });
   const api = connect(service, normalizeProps);
   const { defaultValue } = api.getInputProps();
 
@@ -21,6 +25,7 @@ function NumberInputWeb(props: NumberInputProps) {
     <html.div {...zagToReactStrictDom(api.getRootProps())} style={style.root}>
       <html.button
         {...zagToReactStrictDom(api.getDecrementTriggerProps())}
+        {...(Platform.OS !== "web" && { onClick: api.decrement })}
         style={style.button}
       >
         -
@@ -28,41 +33,12 @@ function NumberInputWeb(props: NumberInputProps) {
       <html.span style={style.value}>{defaultValue}</html.span>
       <html.button
         {...zagToReactStrictDom(api.getIncrementTriggerProps())}
+        {...(Platform.OS !== "web" && { onClick: api.increment })}
         style={style.button}
       >
         +
       </html.button>
     </html.div>
-  );
-}
-
-function NumberInputNative(props: NumberInputProps) {
-  const service = useMachine(machine, {
-    ...props,
-    id: useId(),
-    getRootNode: nativeGetRootNode,
-  });
-  const api = connect(service, normalizeProps);
-  const { defaultValue } = api.getInputProps();
-
-  return (
-    <html.div style={style.root}>
-      <html.button onClick={api.decrement} style={style.button}>
-        -
-      </html.button>
-      <html.span style={style.value}>{defaultValue}</html.span>
-      <html.button onClick={api.increment} style={style.button}>
-        +
-      </html.button>
-    </html.div>
-  );
-}
-
-export function NumberInput(props: NumberInputProps) {
-  return Platform.OS === "web" ? (
-    <NumberInputWeb {...props} />
-  ) : (
-    <NumberInputNative {...props} />
   );
 }
 
