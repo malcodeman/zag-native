@@ -27,7 +27,7 @@ export default function HomeScreen() {
         value={inputValue}
         onValueChange={(details) => setInputValue(details.value)}
       />
-      <Progress value={progress} label="Loading..." />
+      <Progress value={progress} label="Loading..." showValueText />
       <html.div style={styles.buttonGroup}>
         <Button onClick={() => setProgress(progress - 20)}>Decrease</Button>
         <Button onClick={() => setProgress(progress + 20)}>Increase</Button>

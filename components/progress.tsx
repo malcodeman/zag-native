@@ -12,10 +12,11 @@ import { css, html } from "react-strict-dom";
 
 type ProgressProps = Omit<ZagProgressProps, "id" | "getRootNode"> & {
   label?: React.ReactNode;
+  showValueText?: boolean;
 };
 
 function ProgressWeb(props: ProgressProps) {
-  const { label, ...rest } = props;
+  const { label, showValueText, ...rest } = props;
   const service = useMachine(machine, { ...rest, id: useId() });
   const api = connect(service, normalizeProps);
   const { style: rangeInlineStyle, ...rangeAttrs } = zagToReactStrictDom(
@@ -38,12 +39,20 @@ function ProgressWeb(props: ProgressProps) {
       >
         <html.div {...rangeAttrs} style={[style.range, rangeInlineStyle]} />
       </html.div>
+      {showValueText ? (
+        <html.span
+          {...zagToReactStrictDom(api.getValueTextProps())}
+          style={style.valueText}
+        >
+          {api.valueAsString}
+        </html.span>
+      ) : null}
     </html.div>
   );
 }
 
 function ProgressNative(props: ProgressProps) {
-  const { label, ...rest } = props;
+  const { label, showValueText, ...rest } = props;
   const service = useMachine(machine, { ...rest, id: useId() });
   const api = connect(service, normalizeProps);
   const { ...rangeAttrs } = zagToReactStrictDom(api.getRangeProps());
@@ -76,6 +85,14 @@ function ProgressNative(props: ProgressProps) {
           style={[nativeRangeStyle.range, animatedRangeStyle]}
         />
       </html.div>
+      {showValueText ? (
+        <html.span
+          {...zagToReactStrictDom(api.getValueTextProps())}
+          style={style.valueText}
+        >
+          {api.valueAsString}
+        </html.span>
+      ) : null}
     </html.div>
   );
 }
@@ -118,5 +135,11 @@ const style = css.create({
     height: 8,
     backgroundColor: "#21201C",
     transition: "width 0.3s ease",
+  },
+  valueText: {
+    fontSize: 14,
+    fontWeight: 600,
+    lineHeight: 1.5,
+    color: "#6F6D66",
   },
 });
