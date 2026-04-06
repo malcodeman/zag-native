@@ -1,7 +1,12 @@
 import { normalizeProps, useMachine } from "@zag-js/react";
 import { connect, machine } from "@zag-js/switch";
-import { useId } from "react";
+import { useEffect, useId } from "react";
 import { Platform } from "react-native";
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from "react-native-reanimated";
 import { css, html } from "react-strict-dom";
 import { nativeGetRootNode } from "../constants";
 import { zagToReactStrictDom } from "../utils/zag-to-react-strict-dom";
@@ -49,6 +54,14 @@ function SwitchNative() {
     getRootNode: nativeGetRootNode,
   });
   const api = connect(service, normalizeProps);
+  const translateX = useSharedValue(api.checked ? 28 : 0);
+  const animatedThumbStyle = useAnimatedStyle(() => ({
+    transform: [{ translateX: translateX.value }],
+  }));
+
+  useEffect(() => {
+    translateX.value = withTiming(api.checked ? 28 : 0, { duration: 200 });
+  }, [api.checked, translateX]);
 
   return (
     <html.div onClick={api.toggleChecked} style={style.root}>
@@ -56,9 +69,9 @@ function SwitchNative() {
         {...zagToReactStrictDom(api.getControlProps())}
         style={[style.control, api.checked && styleChecked.control]}
       >
-        <html.span
+        <Animated.View
           {...zagToReactStrictDom(api.getThumbProps())}
-          style={[style.thumb, api.checked && styleChecked.thumb]}
+          style={[style.thumb, animatedThumbStyle]}
         />
       </html.div>
       <html.span
