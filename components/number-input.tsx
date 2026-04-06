@@ -1,13 +1,19 @@
 import { nativeGetRootNode } from "@/utils/native";
 import { zagToReactStrictDom } from "@/utils/zag-to-react-strict-dom";
-import { connect, machine } from "@zag-js/number-input";
+import {
+  connect,
+  machine,
+  Props as ZagNumberInputProps,
+} from "@zag-js/number-input";
 import { normalizeProps, useMachine } from "@zag-js/react";
 import { useId } from "react";
 import { Platform } from "react-native";
 import { css, html } from "react-strict-dom";
 
-function NumberInputWeb() {
-  const service = useMachine(machine, { id: useId() });
+type NumberInputProps = Omit<ZagNumberInputProps, "id" | "getRootNode">;
+
+function NumberInputWeb(props: NumberInputProps) {
+  const service = useMachine(machine, { ...props, id: useId() });
   const api = connect(service, normalizeProps);
 
   return (
@@ -32,8 +38,9 @@ function NumberInputWeb() {
   );
 }
 
-function NumberInputNative() {
+function NumberInputNative(props: NumberInputProps) {
   const service = useMachine(machine, {
+    ...props,
     id: useId(),
     getRootNode: nativeGetRootNode,
   });
@@ -55,8 +62,12 @@ function NumberInputNative() {
   );
 }
 
-export function NumberInput() {
-  return Platform.OS === "web" ? <NumberInputWeb /> : <NumberInputNative />;
+export function NumberInput(props: NumberInputProps) {
+  return Platform.OS === "web" ? (
+    <NumberInputWeb {...props} />
+  ) : (
+    <NumberInputNative {...props} />
+  );
 }
 
 const style = css.create({

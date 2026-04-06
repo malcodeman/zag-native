@@ -11,6 +11,7 @@ import "./strict.css";
 export default function HomeScreen() {
   const isWeb = Platform.OS === "web";
   const [progress, setProgress] = useState(0);
+  const [inputValue, setInputValue] = useState("0");
 
   return (
     <html.div style={styles.container}>
@@ -22,7 +23,10 @@ export default function HomeScreen() {
         </XStatePopover>
       ) : null}
       <Switch label="Toggle" />
-      <NumberInput />
+      <NumberInput
+        value={inputValue}
+        onValueChange={(details) => setInputValue(details.value)}
+      />
       <Progress value={progress} label="Loading..." />
       <html.div style={styles.buttonGroup}>
         <Button onClick={() => setProgress(progress - 20)}>Decrease</Button>

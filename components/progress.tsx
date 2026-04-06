@@ -10,7 +10,7 @@ import Animated, {
 } from "react-native-reanimated";
 import { css, html } from "react-strict-dom";
 
-type ProgressProps = Omit<ZagProgressProps, "id"> & {
+type ProgressProps = Omit<ZagProgressProps, "id" | "getRootNode"> & {
   label?: React.ReactNode;
 };
 
