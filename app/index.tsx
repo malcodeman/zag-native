@@ -2,6 +2,7 @@ import { Accordion } from "@/components/accordion";
 import { Button } from "@/components/button";
 import { Dialog } from "@/components/dialog";
 import { NumberInput } from "@/components/number-input";
+import { Popover } from "@/components/popover/popover";
 import { XStatePopover } from "@/components/popover/xstate-popover";
 import { Progress } from "@/components/progress";
 import { Switch } from "@/components/switch";
@@ -26,10 +27,13 @@ export default function HomeScreen() {
       <html.p style={styles.title}>Hello cross-platform 👋</html.p>
       <Button onClick={() => alert("click cros platform")}>Click me</Button>
       {isWeb ? (
-        <XStatePopover trigger={<Button>Open Popover</Button>}>
+        <XStatePopover trigger={<Button>Open xstate Popover</Button>}>
           Popover content
         </XStatePopover>
       ) : null}
+      <Popover trigger={<Button>Open zag Popover</Button>}>
+        Popover content
+      </Popover>
       <Switch label="Toggle" />
       <Dialog triggerLabel="View Pricing" title="Pro Plan — $12/mo">
         <html.div style={dialogStyles.priceList}>

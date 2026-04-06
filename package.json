@@ -20,6 +20,7 @@
     "@zag-js/accordion": "^1.39.1",
     "@zag-js/dialog": "^1.39.1",
     "@zag-js/number-input": "^1.39.1",
+    "@zag-js/popover": "^1.39.1",
     "@zag-js/progress": "^1.39.1",
     "@zag-js/react": "^1.39.1",
     "@zag-js/switch": "^1.39.1",
