@@ -3,6 +3,7 @@ import { connect, machine } from "@zag-js/switch";
 import { useId } from "react";
 import { Platform } from "react-native";
 import { html } from "react-strict-dom";
+import { nativeGetRootNode } from "../constants";
 import { zagToReactStrictDom } from "../utils/zag-to-react-strict-dom";
 
 function SwitchWeb() {
@@ -22,7 +23,7 @@ function SwitchWeb() {
   );
 }
 
-const nativeMachine = {
+const nativeMachine: typeof machine = {
   ...machine,
   implementations: {
     ...machine.implementations,
@@ -36,7 +37,7 @@ const nativeMachine = {
 function SwitchNative() {
   const service = useMachine(nativeMachine, {
     id: useId(),
-    getRootNode: () => ({ getElementById: () => null }) as any,
+    getRootNode: nativeGetRootNode,
   });
   const api = connect(service, normalizeProps);
 
