@@ -115,11 +115,12 @@ function DialogNative(props: DialogProps) {
         visible={api.open}
         transparent
         animationType="fade"
+        statusBarTranslucent
         onRequestClose={() => api.setOpen(false)}
       >
-        <html.div style={style.backdrop} onClick={() => api.setOpen(false)} />
-        <html.div style={style.positioner}>
-          <html.div style={style.content}>
+        <html.div style={style.backdrop} />
+        <html.div style={style.positioner} onClick={() => api.setOpen(false)}>
+          <html.div style={[style.content, style.contentNative]}>
             {title && <html.h2 style={style.title}>{title}</html.h2>}
             {description && (
               <html.p style={style.description}>{description}</html.p>
@@ -173,6 +174,9 @@ const style = css.create({
     alignItems: "center",
     justifyContent: "center",
     zIndex: 1000,
+  },
+  contentNative: {
+    marginTop: "auto",
   },
   content: {
     backgroundColor: "#FFF",
