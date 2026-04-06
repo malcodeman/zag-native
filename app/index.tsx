@@ -1,6 +1,7 @@
 import { Platform } from "react-native";
 import { css, html } from "react-strict-dom";
 import { Button } from "./components/button";
+import { XStatePopover } from "./components/popover/xstate-popover";
 import { Switch } from "./components/switch";
 import "./strict.css";
 
@@ -27,6 +28,11 @@ export default function HomeScreen() {
     <html.div style={stylesStrict.container}>
       <html.p style={stylesStrict.title}>Hello cross-platform 👋</html.p>
       <Button onClick={() => alert("click cros platform")}>Click me</Button>
+      {isWeb ? (
+        <XStatePopover trigger={<Button>Open Popover</Button>}>
+          Popover content
+        </XStatePopover>
+      ) : null}
       {isWeb ? <Switch /> : null}
     </html.div>
   );
