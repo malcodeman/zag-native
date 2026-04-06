@@ -33,7 +33,7 @@ export default function HomeScreen() {
           Popover content
         </XStatePopover>
       ) : null}
-      {isWeb ? <Switch /> : null}
+      <Switch />
     </html.div>
   );
 }
