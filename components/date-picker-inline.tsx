@@ -1,5 +1,6 @@
 import { nativeGetRootNode } from "@/utils/native";
 import { zagToReactStrictDom } from "@/utils/zag-to-react-strict-dom";
+import { today, getLocalTimeZone } from "@internationalized/date";
 import * as datePicker from "@zag-js/date-picker";
 import { normalizeProps, useMachine } from "@zag-js/react";
 import { useId } from "react";
@@ -31,11 +32,30 @@ export function DatePickerInline(props: DatePickerInlineProps) {
   });
   const api = datePicker.connect(service, normalizeProps);
 
+  const handleToday = () => {
+    const todayDate = today(getLocalTimeZone());
+    api.setValue([todayDate]);
+  };
+
+  const handleTomorrow = () => {
+    const todayDate = today(getLocalTimeZone());
+    const tomorrowDate = todayDate.add({ days: 1 });
+    api.setValue([tomorrowDate]);
+  };
+
   return (
     <html.div
       {...zagToReactStrictDom(api.getContentProps())}
       style={styles.content}
     >
+      <html.div style={styles.presets}>
+        <html.button onClick={handleToday} style={styles.presetButton}>
+          <html.span>Today</html.span>
+        </html.button>
+        <html.button onClick={handleTomorrow} style={styles.presetButton}>
+          <html.span>Tomorrow</html.span>
+        </html.button>
+      </html.div>
       <html.div hidden={api.view !== "day" ? true : undefined}>
         <html.div
           {...zagToReactStrictDom(api.getViewControlProps({ view: "day" }))}
@@ -290,6 +310,24 @@ const styles = css.create({
     borderRadius: 8,
     boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
     minWidth: 280,
+  },
+  presets: {
+    display: "flex",
+    flexWrap: "wrap",
+    gap: 8,
+    marginBottom: 16,
+  },
+  presetButton: {
+    flex: 1,
+    padding: 8,
+    backgroundColor: "#f5f5f5",
+    borderWidth: 1,
+    borderColor: "#e0e0e0",
+    borderRadius: 4,
+    cursor: "pointer",
+    fontSize: 14,
+    fontWeight: "500",
+    color: "#333",
   },
   viewControl: {
     display: "flex",
