@@ -1,5 +1,6 @@
 import { Accordion } from "@/components/accordion";
 import { Button } from "@/components/button";
+import { DatePickerInline } from "@/components/date-picker-inline";
 import { Dialog } from "@/components/dialog";
 import { NumberInput } from "@/components/number-input";
 import { Popover } from "@/components/popover/popover";
@@ -51,7 +52,6 @@ export default function HomeScreen() {
             Cross-platform UI components built with Zag.js
           </html.p>
         </html.div>
-
         <html.div style={styles.grid}>
           <Section title="Button">
             <html.div style={styles.row}>
@@ -60,21 +60,18 @@ export default function HomeScreen() {
               </Button>
             </html.div>
           </Section>
-
           <Section title="Switch">
             <html.div style={styles.row}>
               <Switch label="Enable notifications" />
               <Switch label="Dark mode" defaultChecked />
             </html.div>
           </Section>
-
           <Section title="Number Input">
             <NumberInput
               value={inputValue}
               onValueChange={(details) => setInputValue(details.value)}
             />
           </Section>
-
           <Section title="Progress">
             <Progress value={progress} label="Completion" showValueText />
             <html.div style={styles.row}>
@@ -86,7 +83,6 @@ export default function HomeScreen() {
               </Button>
             </html.div>
           </Section>
-
           <Section title="Popover">
             <html.div style={styles.row}>
               <Popover trigger={<Button>Open Zag Popover</Button>}>
@@ -103,7 +99,6 @@ export default function HomeScreen() {
               ) : null}
             </html.div>
           </Section>
-
           <Section title="Dialog">
             <Dialog triggerLabel="View Pricing" title="Pro Plan — $12/mo">
               <html.div style={dialogStyles.priceList}>
@@ -125,9 +120,11 @@ export default function HomeScreen() {
               </html.div>
             </Dialog>
           </Section>
-
           <Section title="Accordion">
             <Accordion items={accordionItems} multiple />
+          </Section>
+          <Section title="Date Picker">
+            <DatePickerInline />
           </Section>
         </html.div>
       </html.div>

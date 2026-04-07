@@ -13,11 +13,13 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^15.0.3",
+    "@internationalized/date": "^3.12.0",
     "@react-navigation/bottom-tabs": "^7.4.0",
     "@react-navigation/elements": "^2.6.3",
     "@react-navigation/native": "^7.1.8",
     "@xstate/react": "^6.1.0",
     "@zag-js/accordion": "^1.39.1",
+    "@zag-js/date-picker": "^1.39.1",
     "@zag-js/dialog": "^1.39.1",
     "@zag-js/number-input": "^1.39.1",
     "@zag-js/popover": "^1.39.1",
