@@ -1,28 +1,32 @@
 import { nativeGetRootNode } from "@/utils/native";
 import { zagToReactStrictDom } from "@/utils/zag-to-react-strict-dom";
-import { today, getLocalTimeZone } from "@internationalized/date";
-import * as datePicker from "@zag-js/date-picker";
+import { getLocalTimeZone, today } from "@internationalized/date";
+import {
+  Props as ZagDatePickerProps,
+  connect,
+  machine,
+} from "@zag-js/date-picker";
 import { normalizeProps, useMachine } from "@zag-js/react";
 import { useId } from "react";
 import { Platform } from "react-native";
 import { css, html } from "react-strict-dom";
 
-type DatePickerInlineProps = Omit<datePicker.Props, "id">;
+type DatePickerInlineProps = Omit<ZagDatePickerProps, "id">;
 
-const nativeMachine: typeof datePicker.machine = {
-  ...datePicker.machine,
+const nativeMachine: typeof machine = {
+  ...machine,
   implementations: {
-    ...datePicker.machine.implementations,
+    ...machine.implementations,
     effects: {
-      ...datePicker.machine.implementations?.effects,
+      ...machine.implementations?.effects,
       setupLiveRegion: () => {},
     },
   },
 };
 
 export function DatePickerInline(props: DatePickerInlineProps) {
-  const machine = Platform.OS === "web" ? datePicker.machine : nativeMachine;
-  const service = useMachine(machine, {
+  const dateMachine = Platform.OS === "web" ? machine : nativeMachine;
+  const service = useMachine(dateMachine, {
     id: useId(),
     locale: "en-US",
     selectionMode: "single",
@@ -30,7 +34,7 @@ export function DatePickerInline(props: DatePickerInlineProps) {
     ...props,
     ...(Platform.OS !== "web" && { getRootNode: nativeGetRootNode }),
   });
-  const api = datePicker.connect(service, normalizeProps);
+  const api = connect(service, normalizeProps);
 
   const handleToday = () => {
     const todayDate = today(getLocalTimeZone());
