@@ -92,24 +92,36 @@ export function DatePickerInline(props: DatePickerInlineProps) {
                 {...zagToReactStrictDom(api.getTableRowProps({ view: "day" }))}
                 style={styles.tableRow}
               >
-                {week.map((value, i) => (
-                  <html.div
-                    key={i}
-                    {...zagToReactStrictDom(
-                      api.getDayTableCellProps({ value }),
-                    )}
-                    style={styles.tableCell}
-                  >
-                    <html.button
+                {week.map((value, i) => {
+                  const dayProps = api.getDayTableCellTriggerProps({ value });
+                  const isSelected =
+                    (dayProps as Record<string, unknown>)["data-selected"] ===
+                    "";
+
+                  return (
+                    <html.div
+                      key={i}
                       {...zagToReactStrictDom(
-                        api.getDayTableCellTriggerProps({ value }),
+                        api.getDayTableCellProps({ value }),
                       )}
-                      style={styles.tableCellTrigger}
+                      style={styles.tableCell}
                     >
-                      <html.span>{value.day}</html.span>
-                    </html.button>
-                  </html.div>
-                ))}
+                      <html.button
+                        {...zagToReactStrictDom(dayProps)}
+                        style={[
+                          styles.tableCellTrigger,
+                          isSelected && styles.tableCellTriggerSelected,
+                        ]}
+                      >
+                        <html.span
+                          style={isSelected && styles.tableCellTextSelected}
+                        >
+                          {value.day}
+                        </html.span>
+                      </html.button>
+                    </html.div>
+                  );
+                })}
               </html.div>
             ))}
           </html.div>
@@ -332,6 +344,12 @@ const styles = css.create({
     cursor: "pointer",
     fontSize: 14,
     color: "#333",
+  },
+  tableCellTriggerSelected: {
+    backgroundColor: "#DC3918",
+  },
+  tableCellTextSelected: {
+    color: "#fff",
   },
   viewsContainer: {
     display: "flex",
