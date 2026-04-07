@@ -25,8 +25,7 @@ export function DatePickerInline(props: DatePickerInlineProps) {
     id: useId(),
     locale: "en-US",
     selectionMode: "single",
-    open: true,
-    closeOnSelect: false,
+    inline: true,
     ...props,
     ...(Platform.OS !== "web" && { getRootNode: nativeGetRootNode }),
   });
