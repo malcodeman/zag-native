@@ -264,6 +264,7 @@ const styles = css.create({
   },
   tableRow: {
     display: "flex",
+    marginBottom: 4,
   },
   tableHeader: {
     flex: 1,
@@ -294,7 +295,6 @@ const styles = css.create({
   },
   tableCellTriggerSelected: {
     backgroundColor: "#1A2B49",
-    borderRadius: 100,
   },
   tableCellTriggerOutsideRange: {
     visibility: "hidden",
@@ -303,6 +303,9 @@ const styles = css.create({
     color: "#D1D5DB",
     cursor: "not-allowed",
     textDecorationLine: "line-through",
+    ":hover": {
+      borderWidth: 0,
+    },
   },
   tableCellTextSelected: {
     color: "#fff",
