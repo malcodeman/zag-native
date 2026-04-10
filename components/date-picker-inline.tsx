@@ -29,7 +29,7 @@ export function DatePickerInline(props: DatePickerInlineProps) {
   const service = useMachine(dateMachine, {
     id: useId(),
     locale: "en-US",
-    selectionMode: "single",
+    selectionMode: "range",
     inline: true,
     ...props,
     ...(Platform.OS !== "web" && { getRootNode: nativeGetRootNode }),
@@ -48,10 +48,7 @@ export function DatePickerInline(props: DatePickerInlineProps) {
   };
 
   return (
-    <html.div
-      {...zagToReactStrictDom(api.getContentProps())}
-      style={styles.content}
-    >
+    <html.div {...zagToReactStrictDom(api.getContentProps())}>
       <html.div style={styles.presets}>
         <html.button onClick={handleToday} style={styles.presetButton}>
           <html.span>Today</html.span>
@@ -244,7 +241,19 @@ export function DatePickerInline(props: DatePickerInlineProps) {
               )}
               style={styles.navButton}
             >
-              <html.span>‹</html.span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="17"
+                viewBox="0 0 18 17"
+                fill="none"
+              >
+                <path
+                  opacity="0.2"
+                  d="M9.09961 1.36523L3.66895 7.18262H17.3682V9.18262H3.66895L9.09961 15.001L7.63672 16.3652L0 8.18262L7.63672 0L9.09961 1.36523Z"
+                  fill="#1A2B49"
+                />
+              </svg>
             </html.button>
             <html.span style={styles.decadeLabel}>
               {api.getDecade().start} - {api.getDecade().end}
@@ -255,7 +264,18 @@ export function DatePickerInline(props: DatePickerInlineProps) {
               )}
               style={styles.navButton}
             >
-              <html.span>›</html.span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="17"
+                viewBox="0 0 18 17"
+                fill="none"
+              >
+                <path
+                  d="M17.3682 8.18262L9.73145 16.3652L8.26855 15.001L13.6992 9.18262H0V7.18262H13.6992L8.26855 1.36523L9.73145 0L17.3682 8.18262Z"
+                  fill="#1A2B49"
+                />
+              </svg>
             </html.button>
           </html.div>
           <html.div
@@ -308,30 +328,23 @@ export function DatePickerInline(props: DatePickerInlineProps) {
 }
 
 const styles = css.create({
-  content: {
-    padding: 16,
-    backgroundColor: "#fff",
-    borderRadius: 8,
-    boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
-    minWidth: 280,
-  },
   presets: {
     display: "flex",
-    flexWrap: "wrap",
     gap: 8,
-    marginBottom: 16,
+    marginBottom: 20,
   },
   presetButton: {
-    flex: 1,
-    padding: 8,
-    backgroundColor: "#f5f5f5",
-    borderWidth: 1,
-    borderColor: "#e0e0e0",
-    borderRadius: 4,
+    paddingLeft: 16,
+    paddingTop: 8,
+    paddingRight: 16,
+    paddingBottom: 8,
+    backgroundColor: "#EBEEF1",
+    borderRadius: 100,
     cursor: "pointer",
-    fontSize: 14,
-    fontWeight: "500",
-    color: "#333",
+    fontSize: 16,
+    fontWeight: 400,
+    color: "#1A2B49",
+    borderWidth: 0,
   },
   viewControl: {
     display: "flex",
@@ -350,16 +363,16 @@ const styles = css.create({
   viewTrigger: {
     backgroundColor: "transparent",
     borderWidth: 0,
-    fontSize: 14,
-    fontWeight: "600",
+    fontSize: 18,
+    fontWeight: 700,
     cursor: "pointer",
-    padding: 4,
-    color: "#333",
+    color: "#1A2B49",
   },
   table: {
     display: "flex",
     flexDirection: "column",
     gap: 4,
+    maxWidth: 480,
   },
   tableRow: {
     display: "flex",
@@ -368,26 +381,28 @@ const styles = css.create({
   tableHeader: {
     flex: 1,
     textAlign: "center",
-    fontSize: 12,
-    fontWeight: "600",
-    color: "#666",
-    padding: 8,
+    fontSize: 14,
+    fontWeight: 400,
+    color: "#63687A",
+    height: 44,
   },
   tableCell: {
     flex: 1,
   },
   tableCellTrigger: {
-    width: "100%",
-    padding: 8,
+    width: 44,
+    height: 44,
+    padding: 12,
     backgroundColor: "transparent",
     borderWidth: 0,
-    borderRadius: 4,
     cursor: "pointer",
-    fontSize: 14,
-    color: "#333",
+    fontSize: 16,
+    fontWeight: 400,
+    color: "#1A2B49",
   },
   tableCellTriggerSelected: {
-    backgroundColor: "#DC3918",
+    backgroundColor: "#1A2B49",
+    borderRadius: 100,
   },
   tableCellTextSelected: {
     color: "#fff",
