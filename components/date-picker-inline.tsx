@@ -61,207 +61,221 @@ export function DatePickerInline(props: DatePickerInlineProps) {
           <html.span>Tomorrow</html.span>
         </html.button>
       </html.div>
-      <html.div
-        {...zagToReactStrictDom(api.getViewControlProps({ view: "day" }))}
-        style={styles.viewControl}
-      >
-        <html.button
-          {...zagToReactStrictDom(api.getPrevTriggerProps())}
-          style={styles.navButton}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-          >
-            <path
-              d="M12.7314 5.18262L7.30078 11H21V13H7.30078L12.7314 18.8184L11.2686 20.1826L3.63184 12L11.2686 3.81738L12.7314 5.18262Z"
-              fill="#1A2B49"
-            />
-          </svg>
-        </html.button>
-        <html.span style={styles.viewTrigger}>
-          {api.visibleRangeText.formatted}
-        </html.span>
-        <html.button
-          {...zagToReactStrictDom(api.getNextTriggerProps())}
-          style={styles.navButton}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-          >
-            <path
-              d="M20.3682 12L12.7314 20.1826L11.2686 18.8184L16.6992 13H3V11H16.6992L11.2686 5.18262L12.7314 3.81738L20.3682 12Z"
-              fill="#1A2B49"
-            />
-          </svg>
-        </html.button>
-      </html.div>
       <html.div style={styles.multipleMonths}>
-        <html.div
-          {...zagToReactStrictDom(api.getTableProps({ view: "day" }))}
-          style={styles.table}
-        >
-          <html.div
-            {...zagToReactStrictDom(api.getTableHeaderProps({ view: "day" }))}
-          >
-            <html.div
-              {...zagToReactStrictDom(api.getTableRowProps({ view: "day" }))}
-              style={styles.tableRow}
+        <html.div style={styles.monthWrapper}>
+          <html.div style={styles.monthHeader}>
+            <html.button
+              {...zagToReactStrictDom(api.getPrevTriggerProps())}
+              style={styles.navButton}
             >
-              {api.weekDays.map((day, i) => (
-                <html.div
-                  key={i}
-                  aria-label={day.long}
-                  style={styles.tableHeader}
-                >
-                  <html.span>{day.narrow}</html.span>
-                </html.div>
-              ))}
-            </html.div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+              >
+                <path
+                  d="M12.7314 5.18262L7.30078 11H21V13H7.30078L12.7314 18.8184L11.2686 20.1826L3.63184 12L11.2686 3.81738L12.7314 5.18262Z"
+                  fill="#1A2B49"
+                />
+              </svg>
+            </html.button>
+            <html.span style={styles.viewTrigger}>
+              {api.visibleRangeText.start}
+            </html.span>
+            <html.span />
           </html.div>
           <html.div
-            {...zagToReactStrictDom(api.getTableBodyProps({ view: "day" }))}
+            {...zagToReactStrictDom(api.getTableProps({ view: "day" }))}
+            style={styles.table}
           >
-            {api.weeks.map((week, i) => (
+            <html.div
+              {...zagToReactStrictDom(api.getTableHeaderProps({ view: "day" }))}
+            >
               <html.div
-                key={i}
                 {...zagToReactStrictDom(api.getTableRowProps({ view: "day" }))}
                 style={styles.tableRow}
               >
-                {week.map((value, i) => {
-                  const dayProps = api.getDayTableCellTriggerProps({
-                    value,
-                    visibleRange: api.visibleRange,
-                  });
-                  const isSelected =
-                    (dayProps as Record<string, unknown>)["data-selected"] ===
-                    "";
-                  const isOutsideRange =
-                    (dayProps as Record<string, unknown>)[
-                      "data-outside-range"
-                    ] === "";
-                  const isInRange =
-                    (dayProps as Record<string, unknown>)["data-in-range"] ===
-                    "";
-                  const isDisabled =
-                    (dayProps as Record<string, unknown>)["data-disabled"] ===
-                    "";
-
-                  return (
-                    <html.div
-                      key={i}
-                      {...zagToReactStrictDom(
-                        api.getDayTableCellProps({ value }),
-                      )}
-                    >
-                      <html.button
-                        {...zagToReactStrictDom(dayProps)}
-                        style={[
-                          styles.tableCellTrigger,
-                          isInRange && styles.tableCellTriggerInRange,
-                          isSelected && styles.tableCellTriggerSelected,
-                          isOutsideRange && styles.tableCellTriggerOutsideRange,
-                          isDisabled && styles.tableCellTriggerDisabled,
-                        ]}
-                      >
-                        <html.span
-                          style={isSelected && styles.tableCellTextSelected}
-                        >
-                          {value.day}
-                        </html.span>
-                      </html.button>
-                    </html.div>
-                  );
-                })}
+                {api.weekDays.map((day, i) => (
+                  <html.div
+                    key={i}
+                    aria-label={day.long}
+                    style={styles.tableHeader}
+                  >
+                    <html.span>{day.narrow}</html.span>
+                  </html.div>
+                ))}
               </html.div>
-            ))}
+            </html.div>
+            <html.div
+              {...zagToReactStrictDom(api.getTableBodyProps({ view: "day" }))}
+            >
+              {api.weeks.map((week, i) => (
+                <html.div
+                  key={i}
+                  {...zagToReactStrictDom(
+                    api.getTableRowProps({ view: "day" }),
+                  )}
+                  style={styles.tableRow}
+                >
+                  {week.map((value, i) => {
+                    const dayProps = api.getDayTableCellTriggerProps({
+                      value,
+                      visibleRange: api.visibleRange,
+                    });
+                    const isSelected =
+                      (dayProps as Record<string, unknown>)["data-selected"] ===
+                      "";
+                    const isOutsideRange =
+                      (dayProps as Record<string, unknown>)[
+                        "data-outside-range"
+                      ] === "";
+                    const isInRange =
+                      (dayProps as Record<string, unknown>)["data-in-range"] ===
+                      "";
+                    const isDisabled =
+                      (dayProps as Record<string, unknown>)["data-disabled"] ===
+                      "";
+
+                    return (
+                      <html.div
+                        key={i}
+                        {...zagToReactStrictDom(
+                          api.getDayTableCellProps({ value }),
+                        )}
+                      >
+                        <html.button
+                          {...zagToReactStrictDom(dayProps)}
+                          style={[
+                            styles.tableCellTrigger,
+                            isInRange && styles.tableCellTriggerInRange,
+                            isSelected && styles.tableCellTriggerSelected,
+                            isOutsideRange &&
+                              styles.tableCellTriggerOutsideRange,
+                            isDisabled && styles.tableCellTriggerDisabled,
+                          ]}
+                        >
+                          <html.span
+                            style={isSelected && styles.tableCellTextSelected}
+                          >
+                            {value.day}
+                          </html.span>
+                        </html.button>
+                      </html.div>
+                    );
+                  })}
+                </html.div>
+              ))}
+            </html.div>
           </html.div>
         </html.div>
-        <html.div
-          {...zagToReactStrictDom(api.getTableProps({ view: "day" }))}
-          style={styles.table}
-        >
-          <html.div
-            {...zagToReactStrictDom(api.getTableHeaderProps({ view: "day" }))}
-          >
-            <html.div
-              {...zagToReactStrictDom(api.getTableRowProps({ view: "day" }))}
-              style={styles.tableRow}
+        <html.div style={styles.monthWrapper}>
+          <html.div style={styles.monthHeader}>
+            <html.span />
+            <html.span style={styles.viewTrigger}>
+              {secondMonth.visibleRangeText.start}
+            </html.span>
+            <html.button
+              {...zagToReactStrictDom(api.getNextTriggerProps())}
+              style={styles.navButton}
             >
-              {api.weekDays.map((day, i) => (
-                <html.div
-                  key={i}
-                  aria-label={day.long}
-                  style={styles.tableHeader}
-                >
-                  <html.span>{day.narrow}</html.span>
-                </html.div>
-              ))}
-            </html.div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+              >
+                <path
+                  d="M20.3682 12L12.7314 20.1826L11.2686 18.8184L16.6992 13H3V11H16.6992L11.2686 5.18262L12.7314 3.81738L20.3682 12Z"
+                  fill="#1A2B49"
+                />
+              </svg>
+            </html.button>
           </html.div>
           <html.div
-            {...zagToReactStrictDom(api.getTableBodyProps({ view: "day" }))}
+            {...zagToReactStrictDom(api.getTableProps({ view: "day" }))}
+            style={styles.table}
           >
-            {secondMonth.weeks.map((week, i) => (
+            <html.div
+              {...zagToReactStrictDom(api.getTableHeaderProps({ view: "day" }))}
+            >
               <html.div
-                key={i}
                 {...zagToReactStrictDom(api.getTableRowProps({ view: "day" }))}
                 style={styles.tableRow}
               >
-                {week.map((value, i) => {
-                  const dayProps = api.getDayTableCellTriggerProps({
-                    value,
-                    visibleRange: secondMonth.visibleRange,
-                  });
-                  const isSelected =
-                    (dayProps as Record<string, unknown>)["data-selected"] ===
-                    "";
-                  const isOutsideRange =
-                    (dayProps as Record<string, unknown>)[
-                      "data-outside-range"
-                    ] === "";
-                  const isInRange =
-                    (dayProps as Record<string, unknown>)["data-in-range"] ===
-                    "";
-                  const isDisabled =
-                    (dayProps as Record<string, unknown>)["data-disabled"] ===
-                    "";
-
-                  return (
-                    <html.div
-                      key={i}
-                      {...zagToReactStrictDom(
-                        api.getDayTableCellProps({ value }),
-                      )}
-                    >
-                      <html.button
-                        {...zagToReactStrictDom(dayProps)}
-                        style={[
-                          styles.tableCellTrigger,
-                          isInRange && styles.tableCellTriggerInRange,
-                          isSelected && styles.tableCellTriggerSelected,
-                          isOutsideRange && styles.tableCellTriggerOutsideRange,
-                          isDisabled && styles.tableCellTriggerDisabled,
-                        ]}
-                      >
-                        <html.span
-                          style={isSelected && styles.tableCellTextSelected}
-                        >
-                          {value.day}
-                        </html.span>
-                      </html.button>
-                    </html.div>
-                  );
-                })}
+                {api.weekDays.map((day, i) => (
+                  <html.div
+                    key={i}
+                    aria-label={day.long}
+                    style={styles.tableHeader}
+                  >
+                    <html.span>{day.narrow}</html.span>
+                  </html.div>
+                ))}
               </html.div>
-            ))}
+            </html.div>
+            <html.div
+              {...zagToReactStrictDom(api.getTableBodyProps({ view: "day" }))}
+            >
+              {secondMonth.weeks.map((week, i) => (
+                <html.div
+                  key={i}
+                  {...zagToReactStrictDom(
+                    api.getTableRowProps({ view: "day" }),
+                  )}
+                  style={styles.tableRow}
+                >
+                  {week.map((value, i) => {
+                    const dayProps = api.getDayTableCellTriggerProps({
+                      value,
+                      visibleRange: secondMonth.visibleRange,
+                    });
+                    const isSelected =
+                      (dayProps as Record<string, unknown>)["data-selected"] ===
+                      "";
+                    const isOutsideRange =
+                      (dayProps as Record<string, unknown>)[
+                        "data-outside-range"
+                      ] === "";
+                    const isInRange =
+                      (dayProps as Record<string, unknown>)["data-in-range"] ===
+                      "";
+                    const isDisabled =
+                      (dayProps as Record<string, unknown>)["data-disabled"] ===
+                      "";
+
+                    return (
+                      <html.div
+                        key={i}
+                        {...zagToReactStrictDom(
+                          api.getDayTableCellProps({ value }),
+                        )}
+                      >
+                        <html.button
+                          {...zagToReactStrictDom(dayProps)}
+                          style={[
+                            styles.tableCellTrigger,
+                            isInRange && styles.tableCellTriggerInRange,
+                            isSelected && styles.tableCellTriggerSelected,
+                            isOutsideRange &&
+                              styles.tableCellTriggerOutsideRange,
+                            isDisabled && styles.tableCellTriggerDisabled,
+                          ]}
+                        >
+                          <html.span
+                            style={isSelected && styles.tableCellTextSelected}
+                          >
+                            {value.day}
+                          </html.span>
+                        </html.button>
+                      </html.div>
+                    );
+                  })}
+                </html.div>
+              ))}
+            </html.div>
           </html.div>
         </html.div>
       </html.div>
@@ -288,12 +302,6 @@ const styles = css.create({
     color: "#1A2B49",
     borderWidth: 0,
   },
-  viewControl: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-    marginBottom: 16,
-  },
   navButton: {
     backgroundColor: "transparent",
     borderWidth: 0,
@@ -310,6 +318,16 @@ const styles = css.create({
   multipleMonths: {
     display: "flex",
     gap: 24,
+  },
+  monthWrapper: {
+    display: "flex",
+    flexDirection: "column",
+  },
+  monthHeader: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    height: 44,
   },
   table: {
     display: "flex",
