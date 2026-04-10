@@ -181,14 +181,16 @@ function MonthCalendar({ api, weeks, visibleRange }: MonthCalendarProps) {
                 <html.div
                   key={i}
                   {...zagToReactStrictDom(api.getDayTableCellProps({ value }))}
+                  style={[
+                    isInRange && styles.tableCellTriggerInRange,
+                    isOutsideRange && styles.tableCellTriggerOutsideRange,
+                  ]}
                 >
                   <html.button
                     {...zagToReactStrictDom(dayProps)}
                     style={[
                       styles.tableCellTrigger,
-                      isInRange && styles.tableCellTriggerInRange,
                       isSelected && styles.tableCellTriggerSelected,
-                      isOutsideRange && styles.tableCellTriggerOutsideRange,
                       isDisabled && styles.tableCellTriggerDisabled,
                     ]}
                   >
@@ -277,10 +279,15 @@ const styles = css.create({
     padding: 12,
     backgroundColor: "transparent",
     borderWidth: 0,
+    borderColor: "#1A2B49",
     cursor: "pointer",
     fontSize: 16,
     fontWeight: 400,
     color: "#1A2B49",
+    borderRadius: 100,
+    ":hover": {
+      borderWidth: 1,
+    },
   },
   tableCellTriggerInRange: {
     backgroundColor: "#EBEEF1",
