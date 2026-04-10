@@ -40,27 +40,9 @@ export function DatePickerInline(props: DatePickerInlineProps) {
   const api = connect(service, normalizeProps);
   const secondMonth = api.getOffset({ months: 1 });
 
-  const handleToday = () => {
-    const todayDate = today(getLocalTimeZone());
-    api.setValue([todayDate]);
-  };
-
-  const handleTomorrow = () => {
-    const todayDate = today(getLocalTimeZone());
-    const tomorrowDate = todayDate.add({ days: 1 });
-    api.setValue([tomorrowDate]);
-  };
-
   return (
     <html.div {...zagToReactStrictDom(api.getContentProps())}>
-      <html.div style={styles.presets}>
-        <html.button onClick={handleToday} style={styles.presetButton}>
-          <html.span>Today</html.span>
-        </html.button>
-        <html.button onClick={handleTomorrow} style={styles.presetButton}>
-          <html.span>Tomorrow</html.span>
-        </html.button>
-      </html.div>
+      <Presets api={api} />
       <html.div style={styles.multipleMonths}>
         <html.div style={styles.monthWrapper}>
           <html.div style={styles.monthHeader}>
@@ -123,6 +105,65 @@ export function DatePickerInline(props: DatePickerInlineProps) {
           />
         </html.div>
       </html.div>
+    </html.div>
+  );
+}
+
+type PresetsProps = {
+  api: ReturnType<typeof connect>;
+};
+
+function Presets({ api }: PresetsProps) {
+  const handleToday = () => {
+    const todayDate = today(getLocalTimeZone());
+    const currentValue = api.value[0];
+
+    if (currentValue && currentValue.compare(todayDate) === 0) {
+      api.clearValue();
+    } else {
+      api.setValue([todayDate]);
+    }
+  };
+
+  const handleTomorrow = () => {
+    const todayDate = today(getLocalTimeZone());
+    const tomorrowDate = todayDate.add({ days: 1 });
+    const currentValue = api.value[0];
+
+    if (currentValue && currentValue.compare(tomorrowDate) === 0) {
+      api.clearValue();
+    } else {
+      api.setValue([tomorrowDate]);
+    }
+  };
+
+  const todayDate = today(getLocalTimeZone());
+  const tomorrowDate = todayDate.add({ days: 1 });
+  const currentValue = api.value[0];
+  const isTodaySelected = currentValue && currentValue.compare(todayDate) === 0;
+  const isTomorrowSelected =
+    currentValue && currentValue.compare(tomorrowDate) === 0;
+
+  return (
+    <html.div style={styles.presets}>
+      <html.button
+        onClick={handleToday}
+        style={[
+          styles.presetButton,
+          isTodaySelected && styles.presetButtonSelected,
+        ]}
+      >
+        <html.span>Today</html.span>
+      </html.button>
+      <html.button
+        onClick={handleTomorrow}
+        style={[
+          styles.presetButton,
+          isTomorrowSelected && styles.presetButtonSelected,
+        ]}
+      >
+        <html.span>Tomorrow</html.span>
+      </html.button>
     </html.div>
   );
 }
@@ -228,6 +269,10 @@ const styles = css.create({
     fontWeight: 400,
     color: "#1A2B49",
     borderWidth: 0,
+  },
+  presetButtonSelected: {
+    backgroundColor: "#1A2B49",
+    color: "#fff",
   },
   navButton: {
     backgroundColor: "transparent",
