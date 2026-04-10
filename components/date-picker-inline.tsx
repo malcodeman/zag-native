@@ -40,6 +40,13 @@ export function DatePickerInline(props: DatePickerInlineProps) {
   const api = connect(service, normalizeProps);
   const secondMonth = api.getOffset({ months: 1 });
 
+  const prevTriggerProps = api.getPrevTriggerProps();
+  const nextTriggerProps = api.getNextTriggerProps();
+  const isPrevDisabled =
+    (prevTriggerProps as Record<string, unknown>)["data-disabled"] === "";
+  const isNextDisabled =
+    (nextTriggerProps as Record<string, unknown>)["data-disabled"] === "";
+
   return (
     <html.div {...zagToReactStrictDom(api.getContentProps())}>
       <Presets api={api} />
@@ -47,8 +54,11 @@ export function DatePickerInline(props: DatePickerInlineProps) {
         <html.div style={styles.monthWrapper}>
           <html.div style={styles.monthHeader}>
             <html.button
-              {...zagToReactStrictDom(api.getPrevTriggerProps())}
-              style={styles.navButton}
+              {...zagToReactStrictDom(prevTriggerProps)}
+              style={[
+                styles.navButton,
+                isPrevDisabled && styles.navButtonDisabled,
+              ]}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -81,8 +91,11 @@ export function DatePickerInline(props: DatePickerInlineProps) {
               {secondMonth.visibleRangeText.start}
             </html.span>
             <html.button
-              {...zagToReactStrictDom(api.getNextTriggerProps())}
-              style={styles.navButton}
+              {...zagToReactStrictDom(nextTriggerProps)}
+              style={[
+                styles.navButton,
+                isNextDisabled && styles.navButtonDisabled,
+              ]}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -279,8 +292,11 @@ const styles = css.create({
     borderWidth: 0,
     fontSize: 24,
     cursor: "pointer",
-    padding: 4,
-    color: "#333",
+    padding: 10,
+  },
+  navButtonDisabled: {
+    opacity: 0.2,
+    cursor: "not-allowed",
   },
   viewTrigger: {
     fontSize: 18,
