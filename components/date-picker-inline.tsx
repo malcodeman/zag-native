@@ -33,6 +33,7 @@ export function DatePickerInline(props: DatePickerInlineProps) {
     inline: true,
     startOfWeek: 1,
     numOfMonths: 2,
+    min: today(getLocalTimeZone()),
     ...props,
     ...(Platform.OS !== "web" && { getRootNode: nativeGetRootNode }),
   });
@@ -149,6 +150,9 @@ export function DatePickerInline(props: DatePickerInlineProps) {
                   const isInRange =
                     (dayProps as Record<string, unknown>)["data-in-range"] ===
                     "";
+                  const isDisabled =
+                    (dayProps as Record<string, unknown>)["data-disabled"] ===
+                    "";
 
                   return (
                     <html.div
@@ -164,6 +168,7 @@ export function DatePickerInline(props: DatePickerInlineProps) {
                           isInRange && styles.tableCellTriggerInRange,
                           isSelected && styles.tableCellTriggerSelected,
                           isOutsideRange && styles.tableCellTriggerOutsideRange,
+                          isDisabled && styles.tableCellTriggerDisabled,
                         ]}
                       >
                         <html.span
@@ -225,6 +230,9 @@ export function DatePickerInline(props: DatePickerInlineProps) {
                   const isInRange =
                     (dayProps as Record<string, unknown>)["data-in-range"] ===
                     "";
+                  const isDisabled =
+                    (dayProps as Record<string, unknown>)["data-disabled"] ===
+                    "";
 
                   return (
                     <html.div
@@ -240,6 +248,7 @@ export function DatePickerInline(props: DatePickerInlineProps) {
                           isInRange && styles.tableCellTriggerInRange,
                           isSelected && styles.tableCellTriggerSelected,
                           isOutsideRange && styles.tableCellTriggerOutsideRange,
+                          isDisabled && styles.tableCellTriggerDisabled,
                         ]}
                       >
                         <html.span
@@ -340,6 +349,11 @@ const styles = css.create({
   tableCellTriggerOutsideRange: {
     color: "#BFC7CF",
     cursor: "not-allowed",
+  },
+  tableCellTriggerDisabled: {
+    color: "#D1D5DB",
+    cursor: "not-allowed",
+    textDecorationLine: "line-through",
   },
   tableCellTextSelected: {
     color: "#fff",
