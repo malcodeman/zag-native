@@ -135,6 +135,12 @@ export function DatePickerInline(props: DatePickerInlineProps) {
                 const dayProps = api.getDayTableCellTriggerProps({ value });
                 const isSelected =
                   (dayProps as Record<string, unknown>)["data-selected"] === "";
+                const isOutsideRange =
+                  (dayProps as Record<string, unknown>)[
+                    "data-outside-range"
+                  ] === "";
+                const isInRange =
+                  (dayProps as Record<string, unknown>)["data-in-range"] === "";
 
                 return (
                   <html.div
@@ -142,13 +148,14 @@ export function DatePickerInline(props: DatePickerInlineProps) {
                     {...zagToReactStrictDom(
                       api.getDayTableCellProps({ value }),
                     )}
-                    style={styles.tableCell}
                   >
                     <html.button
                       {...zagToReactStrictDom(dayProps)}
                       style={[
                         styles.tableCellTrigger,
+                        isInRange && styles.tableCellTriggerInRange,
                         isSelected && styles.tableCellTriggerSelected,
+                        isOutsideRange && styles.tableCellTriggerOutsideRange,
                       ]}
                     >
                       <html.span
@@ -214,7 +221,6 @@ const styles = css.create({
   },
   tableRow: {
     display: "flex",
-    gap: 4,
   },
   tableHeader: {
     flex: 1,
@@ -223,9 +229,6 @@ const styles = css.create({
     fontWeight: 400,
     color: "#63687A",
     height: 44,
-  },
-  tableCell: {
-    flex: 1,
   },
   tableCellTrigger: {
     width: 44,
@@ -238,9 +241,16 @@ const styles = css.create({
     fontWeight: 400,
     color: "#1A2B49",
   },
+  tableCellTriggerInRange: {
+    backgroundColor: "#EBEEF1",
+  },
   tableCellTriggerSelected: {
     backgroundColor: "#1A2B49",
     borderRadius: 100,
+  },
+  tableCellTriggerOutsideRange: {
+    color: "#BFC7CF",
+    cursor: "not-allowed",
   },
   tableCellTextSelected: {
     color: "#fff",
