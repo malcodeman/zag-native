@@ -86,89 +86,11 @@ export function DatePickerInline(props: DatePickerInlineProps) {
             </html.span>
             <html.span />
           </html.div>
-          <html.div
-            {...zagToReactStrictDom(api.getTableProps({ view: "day" }))}
-            style={styles.table}
-          >
-            <html.div
-              {...zagToReactStrictDom(api.getTableHeaderProps({ view: "day" }))}
-            >
-              <html.div
-                {...zagToReactStrictDom(api.getTableRowProps({ view: "day" }))}
-                style={styles.tableRow}
-              >
-                {api.weekDays.map((day, i) => (
-                  <html.div
-                    key={i}
-                    aria-label={day.long}
-                    style={styles.tableHeader}
-                  >
-                    <html.span>{day.narrow}</html.span>
-                  </html.div>
-                ))}
-              </html.div>
-            </html.div>
-            <html.div
-              {...zagToReactStrictDom(api.getTableBodyProps({ view: "day" }))}
-            >
-              {api.weeks.map((week, i) => (
-                <html.div
-                  key={i}
-                  {...zagToReactStrictDom(
-                    api.getTableRowProps({ view: "day" }),
-                  )}
-                  style={styles.tableRow}
-                >
-                  {week.map((value, i) => {
-                    const dayProps = api.getDayTableCellTriggerProps({
-                      value,
-                      visibleRange: api.visibleRange,
-                    });
-                    const isSelected =
-                      (dayProps as Record<string, unknown>)["data-selected"] ===
-                      "";
-                    const isOutsideRange =
-                      (dayProps as Record<string, unknown>)[
-                        "data-outside-range"
-                      ] === "";
-                    const isInRange =
-                      (dayProps as Record<string, unknown>)["data-in-range"] ===
-                      "";
-                    const isDisabled =
-                      (dayProps as Record<string, unknown>)["data-disabled"] ===
-                      "";
-
-                    return (
-                      <html.div
-                        key={i}
-                        {...zagToReactStrictDom(
-                          api.getDayTableCellProps({ value }),
-                        )}
-                      >
-                        <html.button
-                          {...zagToReactStrictDom(dayProps)}
-                          style={[
-                            styles.tableCellTrigger,
-                            isInRange && styles.tableCellTriggerInRange,
-                            isSelected && styles.tableCellTriggerSelected,
-                            isOutsideRange &&
-                              styles.tableCellTriggerOutsideRange,
-                            isDisabled && styles.tableCellTriggerDisabled,
-                          ]}
-                        >
-                          <html.span
-                            style={isSelected && styles.tableCellTextSelected}
-                          >
-                            {value.day}
-                          </html.span>
-                        </html.button>
-                      </html.div>
-                    );
-                  })}
-                </html.div>
-              ))}
-            </html.div>
-          </html.div>
+          <MonthCalendar
+            api={api}
+            weeks={api.weeks}
+            visibleRange={api.visibleRange}
+          />
         </html.div>
         <html.div style={styles.monthWrapper}>
           <html.div style={styles.monthHeader}>
@@ -194,90 +116,93 @@ export function DatePickerInline(props: DatePickerInlineProps) {
               </svg>
             </html.button>
           </html.div>
-          <html.div
-            {...zagToReactStrictDom(api.getTableProps({ view: "day" }))}
-            style={styles.table}
-          >
-            <html.div
-              {...zagToReactStrictDom(api.getTableHeaderProps({ view: "day" }))}
-            >
-              <html.div
-                {...zagToReactStrictDom(api.getTableRowProps({ view: "day" }))}
-                style={styles.tableRow}
-              >
-                {api.weekDays.map((day, i) => (
-                  <html.div
-                    key={i}
-                    aria-label={day.long}
-                    style={styles.tableHeader}
-                  >
-                    <html.span>{day.narrow}</html.span>
-                  </html.div>
-                ))}
-              </html.div>
+          <MonthCalendar
+            api={api}
+            weeks={secondMonth.weeks}
+            visibleRange={secondMonth.visibleRange}
+          />
+        </html.div>
+      </html.div>
+    </html.div>
+  );
+}
+
+type MonthCalendarProps = {
+  api: ReturnType<typeof connect>;
+  weeks: ReturnType<typeof connect>["weeks"];
+  visibleRange: ReturnType<typeof connect>["visibleRange"];
+};
+
+function MonthCalendar({ api, weeks, visibleRange }: MonthCalendarProps) {
+  return (
+    <html.div
+      {...zagToReactStrictDom(api.getTableProps({ view: "day" }))}
+      style={styles.table}
+    >
+      <html.div
+        {...zagToReactStrictDom(api.getTableHeaderProps({ view: "day" }))}
+      >
+        <html.div
+          {...zagToReactStrictDom(api.getTableRowProps({ view: "day" }))}
+          style={styles.tableRow}
+        >
+          {api.weekDays.map((day, i) => (
+            <html.div key={i} aria-label={day.long} style={styles.tableHeader}>
+              <html.span>{day.short}</html.span>
             </html.div>
-            <html.div
-              {...zagToReactStrictDom(api.getTableBodyProps({ view: "day" }))}
-            >
-              {secondMonth.weeks.map((week, i) => (
+          ))}
+        </html.div>
+      </html.div>
+      <html.div
+        {...zagToReactStrictDom(api.getTableBodyProps({ view: "day" }))}
+      >
+        {weeks.map((week, i) => (
+          <html.div
+            key={i}
+            {...zagToReactStrictDom(api.getTableRowProps({ view: "day" }))}
+            style={styles.tableRow}
+          >
+            {week.map((value, i) => {
+              const dayProps = api.getDayTableCellTriggerProps({
+                value,
+                visibleRange,
+              });
+              const isSelected =
+                (dayProps as Record<string, unknown>)["data-selected"] === "";
+              const isOutsideRange =
+                (dayProps as Record<string, unknown>)["data-outside-range"] ===
+                "";
+              const isInRange =
+                (dayProps as Record<string, unknown>)["data-in-range"] === "";
+              const isDisabled =
+                (dayProps as Record<string, unknown>)["data-disabled"] === "";
+
+              return (
                 <html.div
                   key={i}
-                  {...zagToReactStrictDom(
-                    api.getTableRowProps({ view: "day" }),
-                  )}
-                  style={styles.tableRow}
+                  {...zagToReactStrictDom(api.getDayTableCellProps({ value }))}
                 >
-                  {week.map((value, i) => {
-                    const dayProps = api.getDayTableCellTriggerProps({
-                      value,
-                      visibleRange: secondMonth.visibleRange,
-                    });
-                    const isSelected =
-                      (dayProps as Record<string, unknown>)["data-selected"] ===
-                      "";
-                    const isOutsideRange =
-                      (dayProps as Record<string, unknown>)[
-                        "data-outside-range"
-                      ] === "";
-                    const isInRange =
-                      (dayProps as Record<string, unknown>)["data-in-range"] ===
-                      "";
-                    const isDisabled =
-                      (dayProps as Record<string, unknown>)["data-disabled"] ===
-                      "";
-
-                    return (
-                      <html.div
-                        key={i}
-                        {...zagToReactStrictDom(
-                          api.getDayTableCellProps({ value }),
-                        )}
-                      >
-                        <html.button
-                          {...zagToReactStrictDom(dayProps)}
-                          style={[
-                            styles.tableCellTrigger,
-                            isInRange && styles.tableCellTriggerInRange,
-                            isSelected && styles.tableCellTriggerSelected,
-                            isOutsideRange &&
-                              styles.tableCellTriggerOutsideRange,
-                            isDisabled && styles.tableCellTriggerDisabled,
-                          ]}
-                        >
-                          <html.span
-                            style={isSelected && styles.tableCellTextSelected}
-                          >
-                            {value.day}
-                          </html.span>
-                        </html.button>
-                      </html.div>
-                    );
-                  })}
+                  <html.button
+                    {...zagToReactStrictDom(dayProps)}
+                    style={[
+                      styles.tableCellTrigger,
+                      isInRange && styles.tableCellTriggerInRange,
+                      isSelected && styles.tableCellTriggerSelected,
+                      isOutsideRange && styles.tableCellTriggerOutsideRange,
+                      isDisabled && styles.tableCellTriggerDisabled,
+                    ]}
+                  >
+                    <html.span
+                      style={isSelected && styles.tableCellTextSelected}
+                    >
+                      {value.day}
+                    </html.span>
+                  </html.button>
                 </html.div>
-              ))}
-            </html.div>
+              );
+            })}
           </html.div>
-        </html.div>
+        ))}
       </html.div>
     </html.div>
   );
