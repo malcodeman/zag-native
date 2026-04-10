@@ -347,8 +347,7 @@ const styles = css.create({
     borderRadius: 100,
   },
   tableCellTriggerOutsideRange: {
-    color: "#BFC7CF",
-    cursor: "not-allowed",
+    visibility: "hidden",
   },
   tableCellTriggerDisabled: {
     color: "#D1D5DB",
