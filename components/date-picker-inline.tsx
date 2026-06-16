@@ -1,5 +1,6 @@
 import { nativeGetRootNode } from "@/utils/native";
 import { zagToReactStrictDom } from "@/utils/zag-to-react-strict-dom";
+import { Ionicons } from "@expo/vector-icons";
 import { getLocalTimeZone, today } from "@internationalized/date";
 import {
   Props as ZagDatePickerProps,
@@ -60,18 +61,7 @@ export function DatePickerInline(props: DatePickerInlineProps) {
                 isPrevDisabled && styles.navButtonDisabled,
               ]}
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-              >
-                <path
-                  d="M12.7314 5.18262L7.30078 11H21V13H7.30078L12.7314 18.8184L11.2686 20.1826L3.63184 12L11.2686 3.81738L12.7314 5.18262Z"
-                  fill="#1A2B49"
-                />
-              </svg>
+              <Ionicons name="arrow-back" size={24} color="#1A2B49" />
             </html.button>
             <html.span style={styles.viewTrigger}>
               {api.visibleRangeText.start}
@@ -97,18 +87,7 @@ export function DatePickerInline(props: DatePickerInlineProps) {
                 isNextDisabled && styles.navButtonDisabled,
               ]}
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-              >
-                <path
-                  d="M20.3682 12L12.7314 20.1826L11.2686 18.8184L16.6992 13H3V11H16.6992L11.2686 5.18262L12.7314 3.81738L20.3682 12Z"
-                  fill="#1A2B49"
-                />
-              </svg>
+              <Ionicons name="arrow-forward" size={24} color="#1A2B49" />
             </html.button>
           </html.div>
           <MonthCalendar
