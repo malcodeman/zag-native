@@ -6,6 +6,7 @@ import { NumberInput } from "@/components/number-input";
 import { Popover } from "@/components/popover/popover";
 import { XStatePopover } from "@/components/popover/xstate-popover";
 import { Progress } from "@/components/progress";
+import { RatingGroup } from "@/components/rating-group";
 import { Switch } from "@/components/switch";
 import { useState } from "react";
 import { Platform, ScrollView } from "react-native";
@@ -125,6 +126,10 @@ export default function HomeScreen() {
           </Section>
           <Section title="Date Picker">
             <DatePickerInline />
+          </Section>
+          <Section title="Rating Group">
+            <RatingGroup label="Rate your experience" defaultValue={3} />
+            <RatingGroup label="Half stars" defaultValue={2.5} allowHalf />
           </Section>
         </html.div>
       </html.div>

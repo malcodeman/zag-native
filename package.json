@@ -24,6 +24,7 @@
     "@zag-js/number-input": "^1.41.2",
     "@zag-js/popover": "^1.41.2",
     "@zag-js/progress": "^1.41.2",
+    "@zag-js/rating-group": "^1.41.2",
     "@zag-js/react": "^1.41.2",
     "@zag-js/slider": "^1.41.2",
     "@zag-js/switch": "^1.41.2",
